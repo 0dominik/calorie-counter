@@ -1,1 +1,1 @@
-live: https://0dominik.github.io/calorie-counter/
+live: https://jolly-goldwasser-d508ff.netlify.app/
