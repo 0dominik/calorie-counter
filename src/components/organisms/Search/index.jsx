@@ -1,24 +1,24 @@
-import React, { useState, useEffect } from "react";
-import theme from "../../../theme/theme";
+import React, { useState, useEffect } from 'react';
+import theme from '../../../theme/theme';
 
-import Error from "../../atoms/Error";
-import FoodElement from "../../molecules/FoodElement";
-import PageNav from "../../molecules/PageNav";
-import SearchForm from "../../molecules/SearchForm";
+import Error from '../../atoms/Error';
+import FoodElement from '../../molecules/FoodElement';
+import PageNav from '../../molecules/PageNav';
+import SearchForm from '../../molecules/SearchForm';
 
-import { Container } from "./style";
-import MoonLoader from "react-spinners/MoonLoader";
+import { Container } from './style';
+import MoonLoader from 'react-spinners/MoonLoader';
 
-import { fetchFood } from "../../../api/fetchFood";
+import { fetchFood } from '../../../api/fetchFood';
 
-const Search = ({ setMeal }) => {
+const Search = ({ setMeal, mealName }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const [food, setFood] = useState([]);
   const [totalPages, setTotalPages] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState('');
 
   const KCAL_ID = 1008;
   const PROTEIN_ID = 1003;
@@ -27,12 +27,12 @@ const Search = ({ setMeal }) => {
 
   const fetchData = async (page) => {
     setIsLoading(true);
-    setError("");
+    setError('');
 
     const data = await fetchFood(page, query);
 
     if (!data) {
-      setError("API error");
+      setError('API error');
       setIsLoading(false);
       return;
     }
@@ -65,9 +65,9 @@ const Search = ({ setMeal }) => {
     });
 
     if (foodList.length === 0) {
-      setError("Incorrect food!");
+      setError('Incorrect food!');
     } else {
-      setError("");
+      setError('');
     }
     setFood(foodList);
   };
@@ -78,7 +78,7 @@ const Search = ({ setMeal }) => {
       setCurrentPage(1);
     } else {
       setFood([]);
-      setError("");
+      setError('');
     }
   }, [query]);
 
@@ -94,7 +94,7 @@ const Search = ({ setMeal }) => {
 
   return (
     <Container>
-      <SearchForm fetchData={fetchData} setQuery={setQuery} query={query} />
+      <SearchForm fetchData={fetchData} setQuery={setQuery} query={query} mealName={mealName} />
       {error && <Error text={error} />}
       {isLoading ? (
         <MoonLoader color={theme.colors.blue} size={50} />
@@ -102,23 +102,10 @@ const Search = ({ setMeal }) => {
         <>
           <ul>
             {food.map((product) => (
-              <FoodElement
-                food={{ ...product, quantity: 100 }}
-                isSearch
-                key={product.id}
-                setMeal={setMeal}
-                setError={setError}
-              />
+              <FoodElement food={{ ...product, quantity: 100 }} isSearch key={product.id} setMeal={setMeal} mealName={mealName} setError={setError} />
             ))}
           </ul>
-          {food.length > 0 && (
-            <PageNav
-              prevPage={prevPage}
-              nextPage={nextPage}
-              currentPage={currentPage}
-              totalPages={totalPages}
-            />
-          )}
+          {food.length > 0 && <PageNav prevPage={prevPage} nextPage={nextPage} currentPage={currentPage} totalPages={totalPages} />}
         </>
       )}
     </Container>

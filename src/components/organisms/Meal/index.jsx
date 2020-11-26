@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
-import FoodElement from "../../molecules/FoodElement";
-import Title from "../../atoms/Title";
-import Button from "../../atoms/Button";
-import Error from "../../atoms/Error";
-import Search from "../Search";
-import { Container, Sum, Info, ButtonContainer } from "./style";
+import React, { useState, useEffect } from 'react';
+import FoodElement from '../../molecules/FoodElement';
+import Title from '../../atoms/Title';
+import Button from '../../atoms/Button';
+import Error from '../../atoms/Error';
+import Search from '../Search';
+import { Container, Sum, Info, ButtonContainer } from './style';
 
-import { FaRegTrashAlt } from "react-icons/fa";
+import { FaRegTrashAlt } from 'react-icons/fa';
 
 const Meal = ({ mealName, setTotal, changeDate, setMealsList }) => {
   const [meal, setMeal] = useState(JSON.parse(localStorage.getItem(mealName)) || []);
@@ -45,18 +45,11 @@ const Meal = ({ mealName, setTotal, changeDate, setMealsList }) => {
   return (
     <Container>
       <Title text={mealName} />
-      {error && <Error text="Quantity cannot be negative" />}
+      {error && <Error text='Quantity cannot be negative' />}
       {meal.length ? (
         <ul>
           {meal.map((food) => (
-            <FoodElement
-              key={food.id}
-              food={food}
-              meals={meal}
-              setMeal={setMeal}
-              setError={setError}
-              mealName={mealName}
-            />
+            <FoodElement key={food.id} food={food} meals={meal} setMeal={setMeal} setError={setError} mealName={mealName} />
           ))}
         </ul>
       ) : (
@@ -64,14 +57,14 @@ const Meal = ({ mealName, setTotal, changeDate, setMealsList }) => {
       )}
       <ButtonContainer>
         <Button
-          text={!open ? "add" : "hide"}
-          type="button"
-          color="blue"
+          text={!open ? 'add' : 'hide'}
+          type='button'
+          color='blue'
           onClick={() => {
             setOpen((prevState) => !prevState);
           }}
         />
-        <Button color="red" onClick={() => setMeal([])} size="large" text="reset" />
+        <Button color='red' onClick={() => setMeal([])} size='large' text='reset' />
         <Button
           onClick={() => {
             setMealsList((prevState) => prevState.filter((name) => name !== mealName));
@@ -83,13 +76,13 @@ const Meal = ({ mealName, setTotal, changeDate, setMealsList }) => {
             setMeal([]);
             localStorage.removeItem(mealName);
           }}
-          color="red"
+          color='red'
           text={<FaRegTrashAlt />}
           icon
-          size="large"
+          size='large'
         />
       </ButtonContainer>
-      {open && <Search setMeal={setMeal} />}
+      {open && <Search setMeal={setMeal} mealName={mealName} />}
       <Sum>
         Sum: {sum.kcal} kcal, {sum.protein}P, {sum.carb}C, {sum.fat}F
       </Sum>
