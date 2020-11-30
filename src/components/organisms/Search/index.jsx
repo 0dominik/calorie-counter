@@ -10,6 +10,7 @@ import { Container } from './style';
 import MoonLoader from 'react-spinners/MoonLoader';
 
 import { fetchFood } from '../../../api/fetchFood';
+import { IDS } from '../../../constants';
 
 const Search = ({ setMeal, mealName }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -19,11 +20,6 @@ const Search = ({ setMeal, mealName }) => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const [query, setQuery] = useState('');
-
-  const KCAL_ID = 1008;
-  const PROTEIN_ID = 1003;
-  const FAT_ID = 1004;
-  const CARB_ID = 1005;
 
   const fetchData = async (page) => {
     setIsLoading(true);
@@ -45,15 +41,15 @@ const Search = ({ setMeal, mealName }) => {
 
     foods.forEach((food) => {
       if (food.foodNutrients.length) {
-        const protein = food.foodNutrients.find((object) => object.nutrientId === PROTEIN_ID);
-        const fat = food.foodNutrients.find((object) => object.nutrientId === FAT_ID);
-        const carb = food.foodNutrients.find((object) => object.nutrientId === CARB_ID);
+        const protein = food.foodNutrients.find((obj) => obj.nutrientId === IDS.protein);
+        const carb = food.foodNutrients.find((obj) => obj.nutrientId === IDS.carb);
+        const fat = food.foodNutrients.find((obj) => obj.nutrientId === IDS.fat);
 
         if (protein && fat && carb) {
           foodList.push({
             id: food.fdcId,
             name: food.description,
-            kcal: food.foodNutrients.find((object) => object.nutrientId === KCAL_ID).value,
+            kcal: food.foodNutrients.find((obj) => obj.nutrientId === IDS.kcal).value,
             protein: protein.value,
             fat: fat.value,
             carb: carb.value,
