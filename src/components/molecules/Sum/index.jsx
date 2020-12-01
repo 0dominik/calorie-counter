@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { H2 } from "./style";
+import React, { useState, useEffect } from 'react';
+import { H2 } from './style';
+import PropTypes from 'prop-types';
 
 const Sum = ({ total }) => {
   const [sum, setSum] = useState({ kcal: 0, protein: 0, carb: 0, fat: 0 });
@@ -25,6 +26,10 @@ const Sum = ({ total }) => {
       carbohydrates, <b>{sum.fat} g</b> fat
     </H2>
   );
+};
+
+Sum.propTypes = {
+  total: PropTypes.object,
 };
 
 export default Sum;

@@ -4,6 +4,8 @@ import Input from '../../atoms/Input';
 import Button from '../../atoms/Button';
 import Label from '../../atoms/Label';
 
+import PropTypes from 'prop-types';
+
 const SearchForm = ({ fetchData, query, setQuery, mealName }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -17,6 +19,13 @@ const SearchForm = ({ fetchData, query, setQuery, mealName }) => {
       <Button text='search' type='submit' color='teal' size='small' />
     </form>
   );
+};
+
+SearchForm.propTypes = {
+  fetchData: PropTypes.func,
+  query: PropTypes.string,
+  setQuery: PropTypes.func,
+  mealName: PropTypes.string,
 };
 
 export default SearchForm;

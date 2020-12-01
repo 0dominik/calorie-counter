@@ -9,8 +9,9 @@ import SearchForm from '../../molecules/SearchForm';
 import { Container } from './style';
 import MoonLoader from 'react-spinners/MoonLoader';
 
-import { fetchFood } from '../../../api/fetchFood';
+import { fetchFood } from '../../../api';
 import { IDS } from '../../../constants';
+import PropTypes from 'prop-types';
 
 const Search = ({ setMeal, mealName }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -78,16 +79,6 @@ const Search = ({ setMeal, mealName }) => {
     }
   }, [query]);
 
-  const nextPage = () => {
-    setCurrentPage((prevValue) => prevValue + 1);
-    fetchData(currentPage + 1);
-  };
-
-  const prevPage = () => {
-    setCurrentPage((prevValue) => prevValue - 1);
-    fetchData(currentPage - 1);
-  };
-
   return (
     <Container>
       <SearchForm fetchData={fetchData} setQuery={setQuery} query={query} mealName={mealName} />
@@ -101,10 +92,16 @@ const Search = ({ setMeal, mealName }) => {
               <FoodElement food={{ ...product, quantity: 100 }} isSearch key={product.id} setMeal={setMeal} mealName={mealName} setError={setError} />
             ))}
           </ul>
-          {food.length > 0 && <PageNav prevPage={prevPage} nextPage={nextPage} currentPage={currentPage} totalPages={totalPages} />}
+          {food.length > 0 && <PageNav fetchData={fetchData} currentPage={currentPage} setCurrentPage={setCurrentPage} totalPages={totalPages} />}
         </>
       )}
     </Container>
   );
 };
+
+Search.propTypes = {
+  setMeal: PropTypes.func,
+  mealName: PropTypes.string,
+};
+
 export default Search;

@@ -3,14 +3,11 @@ import Input from '../../atoms/Input';
 import Button from '../../atoms/Button';
 import { StyledFoodElement, ButtonContainer, Unit, Container, Ingredients } from './style';
 import { FaRegTrashAlt } from 'react-icons/fa';
+import PropTypes from 'prop-types';
 
-const FoodElement = ({ food, setMeal, isSearch, meals, setError, mealName }) => {
+const FoodElement = ({ food, setMeal, isSearch, setError, mealName }) => {
   const [quantity, setQuantity] = useState(food.quantity);
   const [showIngredients, setShowIngredients] = useState(false);
-
-  useEffect(() => {
-    setQuantity(food.quantity);
-  }, [meals]);
 
   const setProduct = ({ id, name, kcal, protein, fat, carb, quantity }) => {
     if (quantity < 0) {
@@ -87,6 +84,14 @@ const FoodElement = ({ food, setMeal, isSearch, meals, setError, mealName }) => 
       )}
     </StyledFoodElement>
   );
+};
+
+FoodElement.propTypes = {
+  food: PropTypes.object,
+  setMeal: PropTypes.func,
+  isSearch: PropTypes.bool,
+  setError: PropTypes.func,
+  mealName: PropTypes.string,
 };
 
 export default FoodElement;

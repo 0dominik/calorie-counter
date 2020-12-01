@@ -1,4 +1,4 @@
-import { URL, API_KEY, PAGE_SIZE } from '../constants';
+import { URL, API_KEY, PAGE_SIZE } from './constants';
 
 export const fetchFood = async (page, query) => {
   try {

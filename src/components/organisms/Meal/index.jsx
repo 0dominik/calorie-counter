@@ -5,20 +5,21 @@ import Button from '../../atoms/Button';
 import Error from '../../atoms/Error';
 import Search from '../Search';
 import { Container, Sum, Info, ButtonContainer } from './style';
+import PropTypes from 'prop-types';
 
 import { FaRegTrashAlt } from 'react-icons/fa';
 
-const Meal = ({ mealName, setTotal, changeDate, setMealsList }) => {
+const Meal = ({ mealName, setTotal, isDateChanged, setMealsList }) => {
   const [meal, setMeal] = useState(JSON.parse(localStorage.getItem(mealName)) || []);
   const [open, setOpen] = useState(false);
   const [sum, setSum] = useState(0);
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    if (changeDate) {
+    if (isDateChanged) {
       setMeal([]);
     }
-  }, [changeDate]);
+  }, [isDateChanged]);
 
   useEffect(() => {
     localStorage.setItem(mealName, JSON.stringify(meal));
@@ -49,7 +50,7 @@ const Meal = ({ mealName, setTotal, changeDate, setMealsList }) => {
       {meal.length ? (
         <ul>
           {meal.map((food) => (
-            <FoodElement key={food.id} food={food} meals={meal} setMeal={setMeal} setError={setError} mealName={mealName} />
+            <FoodElement key={food.id} food={food} setMeal={setMeal} setError={setError} mealName={mealName} />
           ))}
         </ul>
       ) : (
@@ -88,6 +89,13 @@ const Meal = ({ mealName, setTotal, changeDate, setMealsList }) => {
       </Sum>
     </Container>
   );
+};
+
+Meal.propTypes = {
+  mealName: PropTypes.string,
+  setTotal: PropTypes.func,
+  isDateChanged: PropTypes.bool,
+  setMealsList: PropTypes.func,
 };
 
 export default Meal;
