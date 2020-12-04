@@ -43,6 +43,17 @@ const Meal = ({ mealName, setTotal, isDateChanged, setMealsList }) => {
     }));
   }, [meal]);
 
+  const deleteMeal = () => {
+    setMealsList((prevState) => prevState.filter((name) => name !== mealName));
+    setTotal((prevState) => {
+      const newState = prevState;
+      delete prevState[mealName];
+      return { ...newState };
+    });
+    setMeal([]);
+    localStorage.removeItem(mealName);
+  };
+
   return (
     <Container>
       <Title text={mealName} />
@@ -66,22 +77,7 @@ const Meal = ({ mealName, setTotal, isDateChanged, setMealsList }) => {
           }}
         />
         <Button color='red' onClick={() => setMeal([])} size='large' text='reset' />
-        <Button
-          onClick={() => {
-            setMealsList((prevState) => prevState.filter((name) => name !== mealName));
-            setTotal((prevState) => {
-              const newState = prevState;
-              delete prevState[mealName];
-              return { ...newState };
-            });
-            setMeal([]);
-            localStorage.removeItem(mealName);
-          }}
-          color='red'
-          text={<FaRegTrashAlt />}
-          icon
-          size='large'
-        />
+        <Button onClick={deleteMeal} color='red' text={<FaRegTrashAlt />} icon size='large' />
       </ButtonContainer>
       {open && <Search setMeal={setMeal} mealName={mealName} />}
       <Sum>
