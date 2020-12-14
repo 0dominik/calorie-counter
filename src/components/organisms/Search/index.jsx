@@ -34,7 +34,7 @@ const Search = ({ meal, setMeal, mealName }) => {
       return;
     }
 
-    const foods = data.foods;
+    const { foods } = data;
     setIsLoading(false);
     setTotalPages(data.totalPages);
 
@@ -89,10 +89,25 @@ const Search = ({ meal, setMeal, mealName }) => {
         <>
           <ul>
             {food.map((product) => (
-              <FoodElement food={{ ...product, quantity: DEFAULT_QUANTITY}} isSearch key={product.id} meal={meal} setMeal={setMeal} mealName={mealName} setError={setError} />
+              <FoodElement
+                food={{ ...product, quantity: DEFAULT_QUANTITY }}
+                isSearch
+                key={product.id}
+                meal={meal}
+                setMeal={setMeal}
+                mealName={mealName}
+                setError={setError}
+              />
             ))}
           </ul>
-          {food.length > 0 && <PageNav fetchData={fetchData} currentPage={currentPage} setCurrentPage={setCurrentPage} totalPages={totalPages} />}
+          {food.length > 0 && (
+            <PageNav
+              fetchData={fetchData}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+              totalPages={totalPages}
+            />
+          )}
         </>
       )}
     </Container>
@@ -100,8 +115,9 @@ const Search = ({ meal, setMeal, mealName }) => {
 };
 
 Search.propTypes = {
-  setMeal: PropTypes.func,
-  mealName: PropTypes.string,
+  setMeal: PropTypes.func.isRequired,
+  mealName: PropTypes.string.isRequired,
+  meal: PropTypes.array.isRequired,
 };
 
 export default Search;

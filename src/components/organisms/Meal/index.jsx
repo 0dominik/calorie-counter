@@ -9,17 +9,11 @@ import PropTypes from 'prop-types';
 
 import { FaRegTrashAlt } from 'react-icons/fa';
 
-const Meal = ({ mealName, setTotal, isDateChanged, setMealsList }) => {
+const Meal = ({ mealName, setTotal, setMealsList }) => {
   const [meal, setMeal] = useState(JSON.parse(localStorage.getItem(mealName)) || []);
   const [open, setOpen] = useState(false);
   const [sum, setSum] = useState(0);
   const [error, setError] = useState(false);
-
-  useEffect(() => {
-    if (isDateChanged) {
-      setMeal([]);
-    }
-  }, [isDateChanged]);
 
   useEffect(() => {
     localStorage.setItem(mealName, JSON.stringify(meal));
@@ -37,49 +31,51 @@ const Meal = ({ mealName, setTotal, isDateChanged, setMealsList }) => {
       carb += Math.round((food.carb * food.quantity) / 100);
     });
     setSum({ kcal, protein, fat, carb });
-    setTotal((prevState) => ({
-      ...prevState,
-      [mealName]: { ...{ kcal, protein, fat, carb } },
-    }));
+    setTotal((prevState) => [
+      ...prevState.filter((meal) => meal.name !== mealName),
+      { name: mealName, values: { kcal, protein, fat, carb } },
+    ]);
   }, [meal]);
 
   const deleteMeal = () => {
     setMealsList((prevState) => prevState.filter((name) => name !== mealName));
-    setTotal((prevState) => {
-      const newState = prevState;
-      delete prevState[mealName];
-      return { ...newState };
-    });
-    setMeal([]);
+    setTotal((prevState) => prevState.filter((meal) => meal.name !== mealName));
     localStorage.removeItem(mealName);
   };
 
   return (
     <Container>
       <Title text={mealName} />
-      {error && <Error text='Quantity cannot be negative' />}
+      {error && <Error text="Quantity cannot be negative" />}
       {meal.length ? (
         <ul>
           {meal.map((food) => (
-            <FoodElement key={food.id} food={food} setMeal={setMeal} setError={setError} mealName={mealName} />
+            <FoodElement
+              meal={meal}
+              key={food.id}
+              food={food}
+              setMeal={setMeal}
+              setError={setError}
+              mealName={mealName}
+            />
           ))}
         </ul>
       ) : (
-        <Info>You haven't added any food yet!</Info>
+        <Info>You haven&apos;t added any food yet!</Info>
       )}
       <ButtonContainer>
         <Button
           text={!open ? 'add' : 'hide'}
-          type='button'
-          color='blue'
+          type="button"
+          color="blue"
           onClick={() => {
             setOpen((prevState) => !prevState);
           }}
         />
-        <Button color='red' onClick={() => setMeal([])} size='large' text='reset' />
-        <Button onClick={deleteMeal} color='red' text={<FaRegTrashAlt />} icon size='large' />
+        <Button color="red" onClick={() => setMeal([])} size="large" text="reset" />
+        <Button onClick={deleteMeal} color="red" text={<FaRegTrashAlt />} hasIcon size="large" />
       </ButtonContainer>
-      {open && <Search setMeal={setMeal} mealName={mealName} />}
+      {open && <Search meal={meal} setMeal={setMeal} mealName={mealName} />}
       <Sum>
         Sum: {sum.kcal} kcal, {sum.protein}P, {sum.carb}C, {sum.fat}F
       </Sum>
@@ -88,10 +84,9 @@ const Meal = ({ mealName, setTotal, isDateChanged, setMealsList }) => {
 };
 
 Meal.propTypes = {
-  mealName: PropTypes.string,
-  setTotal: PropTypes.func,
-  isDateChanged: PropTypes.bool,
-  setMealsList: PropTypes.func,
+  mealName: PropTypes.string.isRequired,
+  setTotal: PropTypes.func.isRequired,
+  setMealsList: PropTypes.func.isRequired,
 };
 
 export default Meal;

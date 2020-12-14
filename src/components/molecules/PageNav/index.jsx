@@ -17,20 +17,34 @@ const PageContainer = ({ fetchData, currentPage, setCurrentPage, totalPages }) =
 
   return (
     <Container>
-      <Button size='small' onClick={prevPage} type='button' text='Previous page' color='blue' disabled={currentPage <= 1} />
+      <Button
+        size="small"
+        onClick={prevPage}
+        type="button"
+        text="Previous page"
+        color="blue"
+        disabled={currentPage <= 1}
+      />
       <p>
         {currentPage} / {totalPages}
       </p>
-      <Button size='small' onClick={nextPage} type='button' text='Next page' color='blue' disabled={currentPage >= totalPages} />
+      <Button
+        size="small"
+        onClick={nextPage}
+        type="button"
+        text="Next page"
+        color="blue"
+        disabled={currentPage >= totalPages}
+      />
     </Container>
   );
 };
 
 PageContainer.propTypes = {
-  fetchData: PropTypes.func,
-  currentPage: PropTypes.number,
-  setCurrentPage: PropTypes.func,
-  totalPages: PropTypes.number,
+  fetchData: PropTypes.func.isRequired,
+  currentPage: PropTypes.number.isRequired,
+  setCurrentPage: PropTypes.func.isRequired,
+  totalPages: PropTypes.number.isRequired,
 };
 
 export default PageContainer;

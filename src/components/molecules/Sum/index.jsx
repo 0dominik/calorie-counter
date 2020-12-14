@@ -10,11 +10,11 @@ const Sum = ({ total }) => {
     let protein = 0;
     let fat = 0;
     let carb = 0;
-    Object.values(total).forEach((meal) => {
-      kcal += meal.kcal;
-      protein += meal.protein;
-      fat += meal.fat;
-      carb += meal.carb;
+    total.forEach(({ values }) => {
+      kcal += values.kcal;
+      protein += values.protein;
+      fat += values.fat;
+      carb += values.carb;
     });
     setSum({ kcal, protein, fat, carb });
   }, [total]);
@@ -29,7 +29,7 @@ const Sum = ({ total }) => {
 };
 
 Sum.propTypes = {
-  total: PropTypes.object,
+  total: PropTypes.array.isRequired,
 };
 
 export default Sum;

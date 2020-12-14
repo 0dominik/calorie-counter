@@ -14,18 +14,29 @@ const SearchForm = ({ fetchData, query, setQuery, mealName }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Label htmlFor={`search-${mealName}`} text='Food name:' />
-      <Input size='medium' id={`search-${mealName}`} type='text' placeholder='e.g. apple' onChange={(e) => setQuery(e.target.value)} value={query} />
-      <Button text='search' type='submit' color='teal' size='small' />
+      <Label htmlFor={`search-${mealName}`} text="Food name:" />
+      <Input
+        size="medium"
+        id={`search-${mealName}`}
+        type="text"
+        placeholder="e.g. apple"
+        onChange={(e) => setQuery(e.target.value)}
+        value={query}
+      />
+      <Button text="search" type="submit" color="teal" size="small" />
     </form>
   );
 };
 
 SearchForm.propTypes = {
-  fetchData: PropTypes.func,
+  fetchData: PropTypes.func.isRequired,
   query: PropTypes.string,
-  setQuery: PropTypes.func,
-  mealName: PropTypes.string,
+  setQuery: PropTypes.func.isRequired,
+  mealName: PropTypes.string.isRequired,
+};
+
+SearchForm.defaultProps = {
+  query: '',
 };
 
 export default SearchForm;
