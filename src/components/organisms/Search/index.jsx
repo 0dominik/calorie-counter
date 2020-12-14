@@ -10,10 +10,10 @@ import { Container } from './style';
 import MoonLoader from 'react-spinners/MoonLoader';
 
 import { fetchFood } from '../../../api';
-import { IDS } from '../../../constants';
+import { ID, DEFAULT_QUANTITY } from '../../../constants';
 import PropTypes from 'prop-types';
 
-const Search = ({ setMeal, mealName }) => {
+const Search = ({ meal, setMeal, mealName }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [food, setFood] = useState([]);
@@ -42,15 +42,15 @@ const Search = ({ setMeal, mealName }) => {
 
     foods.forEach((food) => {
       if (food.foodNutrients.length) {
-        const protein = food.foodNutrients.find((obj) => obj.nutrientId === IDS.protein);
-        const carb = food.foodNutrients.find((obj) => obj.nutrientId === IDS.carb);
-        const fat = food.foodNutrients.find((obj) => obj.nutrientId === IDS.fat);
+        const protein = food.foodNutrients.find((obj) => obj.nutrientId === ID.protein);
+        const carb = food.foodNutrients.find((obj) => obj.nutrientId === ID.carb);
+        const fat = food.foodNutrients.find((obj) => obj.nutrientId === ID.fat);
 
         if (protein && fat && carb) {
           foodList.push({
             id: food.fdcId,
             name: food.description,
-            kcal: food.foodNutrients.find((obj) => obj.nutrientId === IDS.kcal).value,
+            kcal: food.foodNutrients.find((obj) => obj.nutrientId === ID.kcal).value,
             protein: protein.value,
             fat: fat.value,
             carb: carb.value,
@@ -89,7 +89,7 @@ const Search = ({ setMeal, mealName }) => {
         <>
           <ul>
             {food.map((product) => (
-              <FoodElement food={{ ...product, quantity: 100 }} isSearch key={product.id} setMeal={setMeal} mealName={mealName} setError={setError} />
+              <FoodElement food={{ ...product, quantity: DEFAULT_QUANTITY}} isSearch key={product.id} meal={meal} setMeal={setMeal} mealName={mealName} setError={setError} />
             ))}
           </ul>
           {food.length > 0 && <PageNav fetchData={fetchData} currentPage={currentPage} setCurrentPage={setCurrentPage} totalPages={totalPages} />}
