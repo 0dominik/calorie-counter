@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const H2 = styled.h2`
   font-size: 3rem;
@@ -7,7 +7,7 @@ export const H2 = styled.h2`
   margin-bottom: 30px;
 
   &::after {
-    content: "";
+    content: '';
     background-color: ${({ theme }) => theme.colors.blue};
     width: 100%;
     height: 3px;

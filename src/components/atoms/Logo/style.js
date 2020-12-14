@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const LogoImg = styled.img`
   width: 50px;
@@ -11,6 +11,6 @@ export const H1 = styled.h1`
   align-items: center;
   color: #ffffff;
   font-weight: normal;
-  font-family: "Amatic SC", cursive;
+  font-family: 'Amatic SC', cursive;
   letter-spacing: 0.5px;
 `;
