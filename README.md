@@ -2,7 +2,7 @@
 
 ## Overview
 
-This is a react app to control a calories intake throughout the day. App uses [USDA API](https://fdc.nal.usda.gov/api-guide.html). I followed atomic design rules.
+This is a react app to control calories intake. App uses [USDA API](https://fdc.nal.usda.gov/api-guide.html). I followed atomic design rules.
 
 ## Technologies
 
@@ -11,7 +11,7 @@ This is a react app to control a calories intake throughout the day. App uses [U
 
 ## Features
 
-- Searching by name food from USDA database
+- Searching food from USDA database
 - Food data stored in localStorage and reset every day
 - Progressive web app
 - Adding custom meal
@@ -20,4 +20,4 @@ This is a react app to control a calories intake throughout the day. App uses [U
 
 https://jolly-goldwasser-d508ff.netlify.app/
 
-![project image](https://i.imgur.com/socXhYz.png)
+![project image](https://i.imgur.com/GnNtczy.png)
