@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import theme from '../../../theme/theme';
 
-import Error from '../../atoms/Error';
-import FoodElement from '../../molecules/FoodElement';
-import PageNav from '../../molecules/PageNav';
-import SearchForm from '../../molecules/SearchForm';
+import { Error } from '../../atoms/Error/Error';
+import { FoodElement } from '../../molecules/FoodElement/FoodElement';
+import { PageContainer } from '../../molecules/PageContainer/PageContainer';
+import { SearchForm } from '../../molecules/SearchForm/SearchForm';
 
 import { Container } from './style';
 import MoonLoader from 'react-spinners/MoonLoader';
 
 import { fetchFood } from '../../../api';
 import { ID, DEFAULT_QUANTITY } from '../../../constants';
+import { debounce } from '../../../helpers';
 import PropTypes from 'prop-types';
 
-const Search = ({ meal, setMeal, mealName }) => {
+export const Search = ({ meal, setMeal, mealName }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [food, setFood] = useState([]);
@@ -61,17 +62,14 @@ const Search = ({ meal, setMeal, mealName }) => {
       }
     });
 
-    if (foodList.length === 0) {
-      setError('Incorrect food!');
-    } else {
-      setError('');
-    }
+    foodList.length === 0 ? setError('Incorrect food!') : setError('');
+
     setFood(foodList);
   };
 
   useEffect(() => {
     if (query.length >= 3) {
-      fetchData(1);
+      debounce(() => fetchData(1))(query);
       setCurrentPage(1);
     } else {
       setFood([]);
@@ -81,8 +79,14 @@ const Search = ({ meal, setMeal, mealName }) => {
 
   return (
     <Container>
-      <SearchForm fetchData={fetchData} setQuery={setQuery} query={query} mealName={mealName} />
-      {error && <Error text={error} />}
+      <SearchForm
+        fetchData={fetchData}
+        setQuery={setQuery}
+        query={query}
+        mealName={mealName}
+        isLoading={isLoading}
+      />
+      {error && <Error>{error}</Error>}
       {isLoading ? (
         <MoonLoader color={theme.colors.blue} size={50} />
       ) : (
@@ -101,7 +105,7 @@ const Search = ({ meal, setMeal, mealName }) => {
             ))}
           </ul>
           {food.length > 0 && (
-            <PageNav
+            <PageContainer
               fetchData={fetchData}
               currentPage={currentPage}
               setCurrentPage={setCurrentPage}
@@ -119,5 +123,3 @@ Search.propTypes = {
   mealName: PropTypes.string.isRequired,
   meal: PropTypes.array.isRequired,
 };
-
-export default Search;

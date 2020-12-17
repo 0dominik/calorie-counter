@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 
-import Button from '../../atoms/Button';
-import Input from '../../atoms/Input';
-import Label from '../../atoms/Label';
-import Title from '../../atoms/Title';
-import Error from '../../atoms/Error';
+import { Button } from '../../atoms/Button/Button';
+import { Input } from '../../atoms/Input/Input';
+import { Label } from '../../atoms/Label/Label';
+import { Title } from '../../atoms/Title/Title';
+import { Error } from '../../atoms/Error/Error';
 import { Form, SubContainer } from './style';
 import PropTypes from 'prop-types';
 
-const AddMeal = ({ mealsList, setMealsList }) => {
+export const CustomMeal = ({ mealsList, setMealsList }) => {
   const [customMeal, setCustomMeal] = useState('');
   const [error, setError] = useState(false);
 
@@ -28,9 +28,9 @@ const AddMeal = ({ mealsList, setMealsList }) => {
   return (
     <Form onSubmit={setMeals}>
       <Title text="add custom meal" />
-      {error && <Error text="Enter the name between 3 and 20 characters" />}
+      {error && <Error>Enter the name between 3 and 20 characters</Error>}
       <SubContainer>
-        <Label htmlFor="meal-name" text="Custom meal:" />
+        <Label htmlFor="meal-name">Custom meal:</Label>
         <Input
           id="meal-name"
           type="text"
@@ -40,15 +40,15 @@ const AddMeal = ({ mealsList, setMealsList }) => {
           }}
           value={customMeal}
         />
-        <Button size="small" text="add" color="blue" />
+        <Button size="small" color="blue">
+          add
+        </Button>
       </SubContainer>
     </Form>
   );
 };
 
-AddMeal.propTypes = {
+CustomMeal.propTypes = {
   mealsList: PropTypes.array.isRequired,
   setMealsList: PropTypes.func.isRequired,
 };
-
-export default AddMeal;

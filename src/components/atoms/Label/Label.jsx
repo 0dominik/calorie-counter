@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const StyledLabel = styled.label`
+export const Label = styled.label`
   display: flex;
   justify-content: center;
   align-items: center;

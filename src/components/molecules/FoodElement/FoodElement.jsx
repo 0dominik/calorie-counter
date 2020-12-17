@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import Input from '../../atoms/Input';
-import Button from '../../atoms/Button';
+import { Input } from '../../atoms/Input/Input';
+import { Button } from '../../atoms/Button/Button';
 import { StyledFoodElement, ButtonContainer, Unit, Container, Ingredients } from './style';
 import { FaRegTrashAlt } from 'react-icons/fa';
 import PropTypes from 'prop-types';
 
-const FoodElement = ({ food, meal, setMeal, isSearch, setError, mealName }) => {
+export const FoodElement = ({ food, meal, setMeal, setError, mealName, isSearch = false }) => {
   const [quantity, setQuantity] = useState(food.quantity);
   const [showIngredients, setShowIngredients] = useState(false);
 
@@ -67,17 +67,17 @@ const FoodElement = ({ food, meal, setMeal, isSearch, setError, mealName }) => {
           />
           <Unit>g</Unit>
           <Button
-            text="set"
             type="button"
             color="blue"
             size="small"
             onClick={() => {
               setFood({ ...food, quantity: quantity });
             }}
-          />
+          >
+            set
+          </Button>
           {!isSearch && (
             <Button
-              text={<FaRegTrashAlt />}
               hasIcon
               type="button"
               color="red"
@@ -85,17 +85,20 @@ const FoodElement = ({ food, meal, setMeal, isSearch, setError, mealName }) => {
               onClick={() => {
                 deleteFood({ ...food, quantity: quantity });
               }}
-            />
+            >
+              <FaRegTrashAlt />
+            </Button>
           )}
         </ButtonContainer>
         {food.ingredients && (
           <Button
-            text={showIngredients ? 'Hide ingredients' : 'Show ingredients'}
             onClick={() => setShowIngredients((prevState) => !prevState)}
             size="small"
             color="teal"
             type="button"
-          />
+          >
+            {showIngredients ? 'Hide ingredients' : 'Show ingredients'}
+          </Button>
         )}
       </Container>
       {showIngredients && (
@@ -113,11 +116,5 @@ FoodElement.propTypes = {
   isSearch: PropTypes.bool,
   setError: PropTypes.func.isRequired,
   mealName: PropTypes.string.isRequired,
-  meal: PropTypes.string.isRequired,
+  meal: PropTypes.array.isRequired,
 };
-
-FoodElement.defaultProps = {
-  isSearch: false,
-};
-
-export default FoodElement;

@@ -1,6 +1,6 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
-export const StyledError = styled.p`
+export const Error = styled.p`
   background-color: #c71313;
   margin: 20px 0;
   color: #fff;

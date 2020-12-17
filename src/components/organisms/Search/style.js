@@ -5,7 +5,7 @@ export const Container = styled.div`
   align-items: center;
   flex-direction: column;
   width: 95%;
-  margin: 20px 0;
+  margin-top: 20px;
 
   form {
     display: flex;

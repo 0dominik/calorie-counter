@@ -2,21 +2,21 @@ import React, { useState, useEffect } from 'react';
 import { H2 } from './style';
 import PropTypes from 'prop-types';
 
-const Sum = ({ total }) => {
+export const Sum = ({ total }) => {
   const [sum, setSum] = useState({ kcal: 0, protein: 0, carb: 0, fat: 0 });
 
   useEffect(() => {
-    let kcal = 0;
-    let protein = 0;
-    let fat = 0;
-    let carb = 0;
-    total.forEach(({ values }) => {
-      kcal += values.kcal;
-      protein += values.protein;
-      fat += values.fat;
-      carb += values.carb;
-    });
-    setSum({ kcal, protein, fat, carb });
+    setSum(
+      total.reduce(
+        (tot, obj) => ({
+          kcal: obj.values.kcal + tot.kcal,
+          protein: obj.values.protein + tot.protein,
+          carb: obj.values.carb + tot.carb,
+          fat: obj.values.fat + tot.fat,
+        }),
+        { kcal: 0, protein: 0, carb: 0, fat: 0 }
+      )
+    );
   }, [total]);
 
   return (
@@ -31,5 +31,3 @@ const Sum = ({ total }) => {
 Sum.propTypes = {
   total: PropTypes.array.isRequired,
 };
-
-export default Sum;

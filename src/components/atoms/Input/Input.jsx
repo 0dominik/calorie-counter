@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const StyledInput = styled.input`
+export const Input = styled.input`
   font-size: 1.6rem;
   height: 35px;
   width: ${({ size }) => (size === 'small' ? '50px' : '150px')};

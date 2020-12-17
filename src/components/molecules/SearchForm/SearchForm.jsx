@@ -1,15 +1,17 @@
 import React from 'react';
 
-import Input from '../../atoms/Input';
-import Button from '../../atoms/Button';
-import Label from '../../atoms/Label';
+import { Input } from '../../atoms/Input/Input';
+import { Button } from '../../atoms/Button/Button';
+import { Label } from '../../atoms/Label/Label';
 
 import PropTypes from 'prop-types';
 
-const SearchForm = ({ fetchData, query, setQuery, mealName }) => {
+export const SearchForm = ({ fetchData, query, setQuery, mealName, isLoading }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetchData(1);
+    if (!isLoading) {
+      fetchData(1);
+    }
   };
 
   return (
@@ -23,20 +25,16 @@ const SearchForm = ({ fetchData, query, setQuery, mealName }) => {
         onChange={(e) => setQuery(e.target.value)}
         value={query}
       />
-      <Button text="search" type="submit" color="teal" size="small" />
+      <Button type="submit" color="teal" size="small">
+        search
+      </Button>
     </form>
   );
 };
 
 SearchForm.propTypes = {
   fetchData: PropTypes.func.isRequired,
-  query: PropTypes.string,
+  query: PropTypes.string.isRequired,
   setQuery: PropTypes.func.isRequired,
   mealName: PropTypes.string.isRequired,
 };
-
-SearchForm.defaultProps = {
-  query: '',
-};
-
-export default SearchForm;

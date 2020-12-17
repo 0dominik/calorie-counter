@@ -1,10 +1,10 @@
 import React from 'react';
 
-import Button from '../../atoms/Button';
+import { Button } from '../../atoms/Button/Button';
 import { Container } from './style';
 import PropTypes from 'prop-types';
 
-const PageContainer = ({ fetchData, currentPage, setCurrentPage, totalPages }) => {
+export const PageContainer = ({ fetchData, currentPage, setCurrentPage, totalPages }) => {
   const nextPage = () => {
     setCurrentPage((prevValue) => prevValue + 1);
     fetchData(currentPage + 1);
@@ -21,10 +21,11 @@ const PageContainer = ({ fetchData, currentPage, setCurrentPage, totalPages }) =
         size="small"
         onClick={prevPage}
         type="button"
-        text="Previous page"
         color="blue"
         disabled={currentPage <= 1}
-      />
+      >
+        Previous page
+      </Button>
       <p>
         {currentPage} / {totalPages}
       </p>
@@ -32,10 +33,11 @@ const PageContainer = ({ fetchData, currentPage, setCurrentPage, totalPages }) =
         size="small"
         onClick={nextPage}
         type="button"
-        text="Next page"
         color="blue"
         disabled={currentPage >= totalPages}
-      />
+      >
+        Next page
+      </Button>
     </Container>
   );
 };
@@ -46,5 +48,3 @@ PageContainer.propTypes = {
   setCurrentPage: PropTypes.func.isRequired,
   totalPages: PropTypes.number.isRequired,
 };
-
-export default PageContainer;

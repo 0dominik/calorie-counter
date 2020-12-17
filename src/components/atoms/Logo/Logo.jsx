@@ -1,7 +1,7 @@
 import React from 'react';
 import { LogoImg, H1 } from './style';
 
-const Logo = () => {
+export const Logo = () => {
   return (
     <H1>
       <LogoImg src="./img/logo.png" alt="carrot logo" />
@@ -9,5 +9,3 @@ const Logo = () => {
     </H1>
   );
 };
-
-export default Logo;
