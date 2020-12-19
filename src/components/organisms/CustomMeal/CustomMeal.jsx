@@ -27,14 +27,14 @@ export const CustomMeal = ({ mealsList, setMealsList }) => {
 
   return (
     <Form onSubmit={setMeals}>
-      <Title text="add custom meal" />
+      <Title>add custom meal</Title>
       {error && <Error>Enter the name between 3 and 20 characters</Error>}
       <SubContainer>
         <Label htmlFor="meal-name">Custom meal:</Label>
         <Input
           id="meal-name"
           type="text"
-          placeholder="meal name"
+          placeholder="e.g. snacks"
           onChange={(e) => {
             setCustomMeal(e.target.value);
           }}

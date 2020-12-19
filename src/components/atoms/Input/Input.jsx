@@ -3,12 +3,17 @@ import styled from 'styled-components';
 export const Input = styled.input`
   font-size: 1.6rem;
   height: 35px;
-  width: ${({ size }) => (size === 'small' ? '50px' : '150px')};
+  ${({ size }) =>
+    size === 'small'
+      ? `
+  width: 50px;
+  text-align: center;
+  `
+      : `width: 150px;`};
   box-sizing: border-box;
   background-color: #ffffff;
   border: 1px solid ${({ theme }) => theme.colors.blue};
   -moz-appearance: textfield;
-  ${({ size }) => (size === 'small' ? 'text-align: center' : '')};
   margin: 0;
   padding: 0 5px;
   font-family: 'Lato', sans-serif;

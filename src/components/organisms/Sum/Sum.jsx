@@ -8,11 +8,11 @@ export const Sum = ({ total }) => {
   useEffect(() => {
     setSum(
       total.reduce(
-        (tot, obj) => ({
-          kcal: obj.values.kcal + tot.kcal,
-          protein: obj.values.protein + tot.protein,
-          carb: obj.values.carb + tot.carb,
-          fat: obj.values.fat + tot.fat,
+        (prev, obj) => ({
+          kcal: obj.values.kcal + prev.kcal,
+          protein: obj.values.protein + prev.protein,
+          carb: obj.values.carb + prev.carb,
+          fat: obj.values.fat + prev.fat,
         }),
         { kcal: 0, protein: 0, carb: 0, fat: 0 }
       )

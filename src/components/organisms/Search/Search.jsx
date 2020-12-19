@@ -43,6 +43,7 @@ export const Search = ({ meal, setMeal, mealName }) => {
 
     foods.forEach((food) => {
       if (food.foodNutrients.length) {
+        const kcal = food.foodNutrients.find((obj) => obj.nutrientId === ID.kcal);
         const protein = food.foodNutrients.find((obj) => obj.nutrientId === ID.protein);
         const carb = food.foodNutrients.find((obj) => obj.nutrientId === ID.carb);
         const fat = food.foodNutrients.find((obj) => obj.nutrientId === ID.fat);
@@ -51,7 +52,7 @@ export const Search = ({ meal, setMeal, mealName }) => {
           foodList.push({
             id: food.fdcId,
             name: food.description,
-            kcal: food.foodNutrients.find((obj) => obj.nutrientId === ID.kcal).value,
+            kcal: kcal.value,
             protein: protein.value,
             fat: fat.value,
             carb: carb.value,

@@ -1,6 +1,6 @@
-// const round = (number, precision) => {
-//   return Math.round((food.fat * food.quantity) / 100);
-// }
+export const round = (number, precision) => {
+  return Math.round(number / Math.pow(10, precision));
+};
 
 export const getLocalStorage = (item) => {
   return JSON.parse(localStorage.getItem(item));

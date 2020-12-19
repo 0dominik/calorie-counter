@@ -5,9 +5,9 @@ import { Button } from '../../atoms/Button/Button';
 import { Error } from '../../atoms/Error/Error';
 import { Search } from '../Search/Search';
 import { Container, Sum, Info, ButtonContainer } from './style';
-import PropTypes from 'prop-types';
-
 import { FaRegTrashAlt } from 'react-icons/fa';
+import { round } from '../../../helpers';
+import PropTypes from 'prop-types';
 
 export const Meal = ({ mealName, setTotal, setMealsList }) => {
   const [meal, setMeal] = useState(JSON.parse(localStorage.getItem(mealName)) || []);
@@ -20,21 +20,20 @@ export const Meal = ({ mealName, setTotal, setMealsList }) => {
   }, [meal]);
 
   useEffect(() => {
-    let kcal = 0;
-    let protein = 0;
-    let fat = 0;
-    let carb = 0;
-    meal.forEach((food) => {
-      kcal += Math.round((food.kcal * food.quantity) / 100);
-      protein += Math.round((food.protein * food.quantity) / 100);
-      fat += Math.round((food.fat * food.quantity) / 100);
-      carb += Math.round((food.carb * food.quantity) / 100);
-    });
-    setSum({ kcal, protein, fat, carb });
+    const summedObj = meal.reduce(
+      (prev, obj) => ({
+        kcal: round(obj.kcal * obj.quantity, 2) + prev.kcal,
+        protein: round(obj.protein * obj.quantity, 2) + prev.protein,
+        carb: round(obj.carb * obj.quantity, 2) + prev.carb,
+        fat: round(obj.fat * obj.quantity, 2) + prev.fat,
+      }),
+      { kcal: 0, protein: 0, carb: 0, fat: 0 }
+    );
 
+    setSum(summedObj);
     setTotal((prevState) => [
       ...prevState.filter((meal) => meal.name !== mealName),
-      { name: mealName, values: { kcal, protein, fat, carb } },
+      { name: mealName, values: summedObj },
     ]);
   }, [meal]);
 
@@ -46,7 +45,7 @@ export const Meal = ({ mealName, setTotal, setMealsList }) => {
 
   return (
     <Container>
-      <Title text={mealName} />
+      <Title>{mealName}</Title>
       {error && <Error>Quantity cannot be negative</Error>}
       {meal.length ? (
         <ul>
@@ -62,7 +61,7 @@ export const Meal = ({ mealName, setTotal, setMealsList }) => {
           ))}
         </ul>
       ) : (
-        <Info>You haven&apos;t added any food yet!</Info>
+        <Info>You haven&apos;t added any food yet. Click "search food" button!</Info>
       )}
       <ButtonContainer>
         <Button
@@ -72,7 +71,7 @@ export const Meal = ({ mealName, setTotal, setMealsList }) => {
             setOpen((prevState) => !prevState);
           }}
         >
-          {!open ? 'add' : 'hide'}
+          {!open ? 'search food' : 'hide section'}
         </Button>
         <Button color="red" onClick={() => setMeal([])} size="large">
           reset

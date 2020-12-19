@@ -3,7 +3,7 @@ import { ThemeProvider } from 'styled-components';
 import { GlobalStyle } from './globalStyles';
 import theme from './theme/theme';
 
-import { Header } from './components/molecules/Header/Header';
+import { Header } from './components/organisms/Header/Header';
 import { CustomMeal } from './components/organisms/CustomMeal/CustomMeal';
 import { Sum } from './components/organisms/Sum/Sum';
 import { Meal } from './components/organisms/Meal/Meal';

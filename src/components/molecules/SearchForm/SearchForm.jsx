@@ -16,7 +16,7 @@ export const SearchForm = ({ fetchData, query, setQuery, mealName, isLoading }) 
 
   return (
     <form onSubmit={handleSubmit}>
-      <Label htmlFor={`search-${mealName}`} text="Food name:" />
+      <Label htmlFor={`search-${mealName}`}>Food name:</Label>
       <Input
         size="medium"
         id={`search-${mealName}`}
