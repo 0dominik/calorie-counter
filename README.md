@@ -2,7 +2,7 @@
 
 ## Overview
 
-This is a react app to control calories intake. App uses [USDA API](https://fdc.nal.usda.gov/api-guide.html). I followed atomic design rules.
+This is a react app to control calories intake. It allows you to search food from [USDA API](https://fdc.nal.usda.gov/api-guide.html) database. Nutrition values from all meals are counted and shown. In components structure I followed atomic design rules.
 
 ## Technologies
 
@@ -13,7 +13,7 @@ This is a react app to control calories intake. App uses [USDA API](https://fdc.
 
 - Searching food from USDA database
 - Food data stored in localStorage and reset every day
-- Progressive web app
+- Progressive web app (PWA)
 - Adding custom meal
 
 ## Live
