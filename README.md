@@ -16,8 +16,8 @@ This is a react app to control calories intake. It allows you to search food fro
 - Progressive web app (PWA)
 - Adding custom meal
 
-## Live
+## Demo
 
-https://jolly-goldwasser-d508ff.netlify.app/
+https://my-calorie.netlify.app/
 
 ![project image](https://i.imgur.com/GnNtczy.png)
